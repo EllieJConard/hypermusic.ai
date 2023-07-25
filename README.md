@@ -1,4 +1,6 @@
-![Node.js CI](https://github.com/ryohey/signal/workflows/Node.js%20CI/badge.svg) [![Join the chat at https://discord.gg/XQxzNdDJse](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/XQxzNdDJse)
+# hypermusic.ai
+
+Token-Based Music Editor: AI-Driven Toolset for Automated Musical Tasks build on top of Signal
 
 # Signal
 
