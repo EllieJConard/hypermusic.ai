@@ -4,7 +4,7 @@ Token-Based Music Editor: AI-Driven Toolset for Automated Musical Tasks build on
 
 # Signal
 
-A friendly music sequencer application built with web technology.
+A friendly music sequencer application built with web technology.git
 
 ## Goals
 
