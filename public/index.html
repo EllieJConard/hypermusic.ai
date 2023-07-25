@@ -46,11 +46,6 @@
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-179088031-1"
-    ></script>
     <script>
       window.dataLayer = window.dataLayer || []
       function gtag() {
@@ -68,7 +63,10 @@
     <header>
       <div class="content">
         <a href="/" id="title"><img src="logo-white.svg" /></a>
-        <a href="https://github.com/ryohey/signal/" id="github-link">
+        <a
+          href="https://github.com/sunsetsobserver/Hypermusic.ai"
+          id="github-link"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -86,9 +84,10 @@
     <section id="hero">
       <div class="content">
         <div class="text">
-          <h1 data-i18n="app-intro">Fully Open-sourced Online MIDI Editor</h1>
+          <h1 data-i18n="app-intro">Hypermusic.ai</h1>
           <p class="description" data-i18n="app-desc">
-            Start making music without installing anything
+            Token-Based Music Editor: AI-Driven Toolset for Automated Musical
+            Tasks built on top of Signal
           </p>
           <a href="edit" id="launch-button" data-i18n="launch">Launch</a>
           <p class="platform" data-i18n="platform">
@@ -97,151 +96,6 @@
         </div>
         <div class="image">
           <img src="screenshot.png" alt="" />
-        </div>
-      </div>
-    </section>
-
-    <section id="features">
-      <div class="content">
-        <div class="left">
-          <h3 data-i18n="features">Features</h3>
-
-          <div class="feature" style="background: #3c2fd740">
-            <div class="icon" style="background: #3c2fd7">
-              <img src="/midi-logo.svg" style="width: 3rem" />
-            </div>
-            <div class="title" data-i18n="feature-midi-file">
-              Fully equipped MIDI editor
-            </div>
-            <div class="description" data-i18n="feature-midi-file-description">
-              Orchestrate freely with the multi-track piano roll editor. Of
-              course, you can use velocity, pitch bend, expression, and
-              modulation to create expressive sound.
-            </div>
-          </div>
-
-          <div class="feature" style="background: #91322c73">
-            <div class="icon" style="background: #e7372c">
-              <img src="/general-midi-logo.svg" />
-            </div>
-            <div class="title" data-i18n="feature-gm-module">
-              GM compatible sound module
-            </div>
-            <div class="description" data-i18n="feature-gm-module-description">
-              128 virtual instruments loaded at very high speed. A dedicated
-              sound module built with the WebAudio API and AudioWorklet allows
-              you to play countless notes in your browser.
-            </div>
-          </div>
-
-          <div class="feature" style="background: #ff99002f">
-            <div class="icon" style="background: #ff9900">
-              <img src="/wav-file.svg" />
-            </div>
-            <div class="title" data-i18n="feature-export-audio">
-              Ultra-fast audio file export
-            </div>
-            <div
-              class="description"
-              data-i18n="feature-export-audio-description"
-            >
-              You can save the music you create as a WAV file and listen to it
-              on your smartphone, use it as background music for your videos, or
-              import it into your DAW.
-            </div>
-          </div>
-
-          <div class="feature" style="background: #249f9f2f">
-            <div class="icon" style="background: #249f9f">
-              <img src="/synthesizer-keyboard-svgrepo-com.svg" />
-            </div>
-            <div class="title" data-i18n="feature-midi-io">
-              MIDI I/O Support
-            </div>
-            <div class="description" data-i18n="feature-midi-io-description">
-              Using a browser that supports the Web MIDI API, you can record the
-              performance of a MIDI keyboard connected to your computer, or play
-              sounds from a hardware synth.
-            </div>
-          </div>
-
-          <div class="feature" style="background: #3d2fd727">
-            <div class="icon" style="background: #3c2fd7">
-              <img src="/iconmonstr-chart-21.svg" />
-            </div>
-            <div class="title" data-i18n="feature-time-signature">
-              Non-4/4 time signature and 300+ bpm
-            </div>
-            <div
-              class="description"
-              data-i18n="feature-time-signature-description"
-            >
-              The graph editor allows you to freely change the tempo and time
-              signature in the middle of a song.
-            </div>
-          </div>
-
-          <div class="feature" style="background: #ff99002f">
-            <div class="icon" style="background: #ff9900">
-              <img src="/pwa-logo.svg" />
-            </div>
-            <div class="title" data-i18n="feature-pwa">PWA Support</div>
-            <div class="description" data-i18n="feature-pwa-description">
-              Want to hide your browser's address bar? You can install it on
-              your desktop and use it as an application.
-            </div>
-          </div>
-        </div>
-
-        <div class="right">
-          <script
-            async
-            type="text/javascript"
-            src="//cdn.carbonads.com/carbon.js?serve=CESI52QY&placement=signalvercelapp"
-            id="_carbonads_js"
-          ></script>
-        </div>
-      </div>
-    </section>
-
-    <section id="sponsor">
-      <div class="content">
-        <h3 data-i18n="become-sponsor">Become a sponsor!</h3>
-        <p class="sponsor-intro" data-i18n="sponsor-intro">
-          signal is an application that I am personally building on weekends. If
-          you like the concept of a lightweight composition software that runs
-          in your browser, please support me.
-        </p>
-
-        <a class="sponsor-button" href="https://github.com/sponsors/ryohey"
-          ><img src="/iconmonstr-favorite-4.svg" /><span
-            data-i18n="open-github-sponsors"
-            >Open Github Sponsors</span
-          ></a
-        >
-      </div>
-    </section>
-
-    <section id="support">
-      <div class="content">
-        <h3 data-i18n="support">Support</h3>
-
-        <div class="support-row">
-          <a class="external-link" href="https://twitter.com/signalmidi">
-            <img src="/iconmonstr-twitter-1.svg" />
-            @signalmidi
-          </a>
-          <span data-i18n="follow-twitter">Check for updates on Twitter</span>
-        </div>
-
-        <div class="support-row">
-          <a class="external-link" href="https://github.com/ryohey/signal">
-            <img src="/github-icon.svg" />
-            ryohey/signal
-          </a>
-          <span data-i18n="support-github-desctiption"
-            >Report bugs or Request features on GitHub</span
-          >
         </div>
       </div>
     </section>

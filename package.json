@@ -1,7 +1,7 @@
 {
-  "name": "signal",
+  "name": "hypermusic.ai",
   "version": "0.0.1",
-  "description": "A friendly music sequencer application for OS X and Windows.",
+  "description": "Token-Based Music Editor: AI-Driven Toolset for Automated Musical Tasks build on top of Signal",
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ryohey/signal.git"
+    "url": "git+https://github.com/sunsetsobserver/hypermusic.ai/"
   },
-  "author": "ryohey",
-  "license": "MIT",
+  "author": "sunsetsobserver",
+  "license": "All rights reserved",
   "bugs": {
-    "url": "https://github.com/ryohey/signal/issues"
+    "url": "https://github.com/sunsetsobserver/hypermusic.ai/"
   },
-  "homepage": "https://github.com/ryohey/signal/",
+  "homepage": "https://github.com/sunsetsobserver/hypermusic.ai/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.0",

@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 import Color from "color"
-import Forum from "mdi-react/ForumIcon"
 import Help from "mdi-react/HelpCircleIcon"
 import Settings from "mdi-react/SettingsIcon"
 import { observer } from "mobx-react-lite"
@@ -175,15 +174,6 @@ export const Navigation: FC = observer(() => {
         <Help style={IconStyle} />
         <TabTitle>
           <Localized default="Help">help</Localized>
-        </TabTitle>
-      </Tab>
-
-      <Tab>
-        <Forum style={IconStyle} />
-        <TabTitle>
-          <a href="https://discord.gg/XQxzNdDJse" target="_blank">
-            Discord
-          </a>
         </TabTitle>
       </Tab>
 
