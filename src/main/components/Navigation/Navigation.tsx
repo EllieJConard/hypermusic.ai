@@ -13,7 +13,6 @@ import PianoIcon from "../../images/icons/piano.svg"
 import TempoIcon from "../../images/icons/tempo.svg"
 import Logo from "../../images/logo-circle.svg"
 import { FileMenuButton } from "./FileMenuButton"
-import { UserButton } from "./UserButton"
 
 const BannerContainer = styled.div`
   background: ${({ theme }) => theme.themeColor};
@@ -156,6 +155,26 @@ export const Navigation: FC = observer(() => {
         </Tab>
       </Tooltip>
 
+      <Tooltip
+        title={
+          <>
+            <Localized default="Switch Tab">switch-tab</Localized> [
+            {envString.cmdOrCtrl}+5]
+          </>
+        }
+        delayDuration={500}
+      >
+        <Tab
+          className={router.path === "/spaces" ? "active" : undefined}
+          onClick={useCallback(() => (router.path = "/spaces"), [])}
+        >
+          {/* <SpacesIcon style={IconStyle} viewBox="0 0 128 128" /> */}
+          <TabTitle>
+            <Localized default="Spaces">spaces</Localized>
+          </TabTitle>
+        </Tab>
+      </Tooltip>
+
       <FlexibleSpacer />
 
       <Tab
@@ -177,7 +196,7 @@ export const Navigation: FC = observer(() => {
         </TabTitle>
       </Tab>
 
-      <UserButton />
+      {/* <UserButton /> */}
     </Container>
   )
 })

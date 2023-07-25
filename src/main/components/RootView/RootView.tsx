@@ -15,6 +15,7 @@ import { OnBeforeUnload } from "../OnBeforeUnload/OnBeforeUnload"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
 import { SettingDialog } from "../SettingDialog/SettingDialog"
 import { SignInDialog } from "../SignInDialog/SignInDialog"
+import SpacesEditor from "../Spaces/SpacesEditor"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
 import { TransportPanel } from "../TransportPanel/TransportPanel"
 import { ArrangeTransposeDialog } from "../TransposeDialog/ArrangeTransposeDialog"
@@ -43,6 +44,9 @@ const Routes: FC = observer(() => {
       {path === "/track" && <PianoRollEditor />}
       {path === "/tempo" && <TempoEditor />}
       {path === "/arrange" && <ArrangeEditor />}
+      {path === "/spaces" && <SpacesEditor />}
+      {/* {path === "/tokens" && <TokensEditor />} */}
+      {/* {path === "/tools" && <ToolsEditor />} */}
     </>
   )
 })

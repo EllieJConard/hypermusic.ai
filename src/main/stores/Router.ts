@@ -1,6 +1,6 @@
 import { makeObservable, observable } from "mobx"
 
-export type RoutePath = "/track" | "/arrange" | "/tempo"
+export type RoutePath = "/track" | "/arrange" | "/tempo" | "/spaces"
 
 export default class Router {
   path: RoutePath = "/track"
@@ -16,6 +16,10 @@ export default class Router {
   }
 
   pushTrack() {
-    this.path = `/track`
+    this.path = "/track"
+  }
+
+  pushSpaces() {
+    this.path = "/spaces"
   }
 }
