@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx"
 
-interface WindowState {
+export interface WindowState {
   position: { x: number; y: number }
   isMinimized: boolean
 }
