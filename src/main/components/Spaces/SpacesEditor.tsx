@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
-import { useState } from "react"
+import { observer } from "mobx-react-lite"
+import { useStores } from "../../hooks/useStores"
 import { Tab as NavigationTab } from "../Navigation/Navigation"
 import Window from "../Window/Window"
 
@@ -15,15 +16,15 @@ const Tab = styled(NavigationTab)`
   cursor: pointer;
 `
 
-export default function SpacesEditor() {
-  const [windows, setWindows] = useState<number[]>([])
+const SpacesEditor = observer(() => {
+  const { spacesStore } = useStores()
 
-  const handleClose = (index: number) => {
-    setWindows(windows.filter((_, i) => i !== index))
+  const handleClose = (id: string) => {
+    spacesStore.removeWindow(id)
   }
 
   const handleAddWindow = () => {
-    setWindows([...windows, windows.length])
+    spacesStore.addWindow()
   }
 
   return (
@@ -39,10 +40,16 @@ export default function SpacesEditor() {
           position: "relative",
         }}
       >
-        {windows.map((_, index) => (
-          <Window key={index} onClose={() => handleClose(index)} />
+        {Array.from(spacesStore.windows.values()).map((window) => (
+          <Window
+            key={window.id}
+            window={window}
+            onClose={() => handleClose(window.id)}
+          />
         ))}
       </div>
     </div>
   )
-}
+})
+
+export default SpacesEditor
