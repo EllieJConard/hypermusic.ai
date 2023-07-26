@@ -2,8 +2,6 @@ import interact from "interactjs"
 import { ReactNode, useContext, useEffect, useRef } from "react"
 import { SpacesStoreContext } from "../../stores/SpacesStoreContext"
 
-const spacesStore = useContext(SpacesStoreContext)
-
 interface WindowProps {
   id: string
   children?: ReactNode
@@ -23,6 +21,7 @@ export default function Window({
   setIsMinimized,
   onClose,
 }: WindowProps) {
+  const spacesStore = useContext(SpacesStoreContext)
   const windowRef = useRef<HTMLDivElement>(null)
   const titleBarRef = useRef<HTMLDivElement>(null)
 

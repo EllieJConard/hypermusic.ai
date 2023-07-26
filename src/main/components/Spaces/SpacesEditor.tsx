@@ -36,8 +36,6 @@ const SpacesEditor = observer(() => {
     spacesStore.addWindow(id, position)
   }
 
-  console.log(Object.values(spacesStore.windows))
-
   return (
     <div>
       <h1>Spaces</h1>
