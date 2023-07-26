@@ -1,42 +1,38 @@
 import interact from "interactjs"
 import { useEffect, useRef } from "react"
+import { useStores } from "../../stores/RootStore"
 import { WindowState } from "../../stores/SpacesStore"
 
 interface WindowProps {
   windowState: WindowState
-  children?: React.ReactNode
   onClose: () => void
-  onMinimize: () => void
-  onMove: (event: Interact.InteractEvent) => void
-  onResize: (event: Interact.InteractEvent) => void
 }
 
-export default function Window({
-  windowState,
-  children,
-  onClose,
-  onMinimize,
-  onMove,
-  onResize,
-}: WindowProps) {
+export default function Window({ windowState, onClose }: WindowProps) {
   const windowRef = useRef<HTMLDivElement>(null)
   const titleBarRef = useRef<HTMLDivElement>(null)
+  const { spacesStore } = useStores()
 
   useEffect(() => {
     if (windowRef.current && titleBarRef.current) {
-      interact(titleBarRef.current).draggable({
-        inertia: false,
-        modifiers: [
-          interact.modifiers.restrictRect({
-            restriction: "parent",
-            endOnly: true,
-          }),
-        ],
-        autoScroll: true,
-        onmove: onMove,
-      })
-
       interact(windowRef.current)
+        .draggable({
+          inertia: true,
+          modifiers: [
+            interact.modifiers.restrictRect({
+              restriction: "parent",
+              endOnly: true,
+            }),
+          ],
+          autoScroll: true,
+          onmove: (event) => {
+            spacesStore.updateWindow({
+              ...windowState,
+              x: windowState.x + event.dx,
+              y: windowState.y + event.dy,
+            })
+          },
+        })
         .resizable({
           edges: { left: true, right: true, bottom: true, top: false },
           modifiers: [
@@ -45,9 +41,15 @@ export default function Window({
             }),
           ],
         })
-        .on("resizemove", onResize)
+        .on("resizemove", (event) => {
+          spacesStore.updateWindow({
+            ...windowState,
+            width: event.rect.width,
+            height: event.rect.height,
+          })
+        })
     }
-  }, [onMove, onResize])
+  }, [windowState, spacesStore])
 
   return (
     <div
@@ -76,7 +78,12 @@ export default function Window({
         <div>Window</div>
         <div>
           <button
-            onClick={onMinimize}
+            onClick={() =>
+              spacesStore.updateWindow({
+                ...windowState,
+                minimized: !windowState.minimized,
+              })
+            }
             style={{
               backgroundColor: "transparent",
               border: "none",
@@ -102,7 +109,7 @@ export default function Window({
           </button>
         </div>
       </div>
-      {!windowState.minimized && children}
+      {!windowState.minimized && windowState.children}
     </div>
   )
 }
