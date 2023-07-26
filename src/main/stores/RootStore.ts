@@ -18,13 +18,11 @@ import PianoRollStore from "./PianoRollStore"
 import RootViewStore from "./RootViewStore"
 import Router from "./Router"
 import SettingStore from "./SettingStore"
-import SpacesStore from "./SpacesStore"
 import TempoEditorStore from "./TempoEditorStore"
 import { registerReactions } from "./reactions"
 
 export default class RootStore {
   song: Song = emptySong()
-  spacesStore: SpacesStore
   readonly router = new Router()
   readonly trackMute = new TrackMute()
   readonly historyStore = new HistoryStore<SerializedState>()
@@ -48,8 +46,6 @@ export default class RootStore {
     makeObservable(this, {
       song: observable.ref,
     })
-
-    this.spacesStore = new SpacesStore()
 
     const context = new (window.AudioContext || window.webkitAudioContext)()
     this.synth = new SoundFontSynth(

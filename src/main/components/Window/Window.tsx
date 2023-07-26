@@ -1,38 +1,37 @@
 import interact from "interactjs"
-import { useEffect, useRef } from "react"
-import { useStores } from "../../stores/RootStore"
-import { WindowState } from "../../stores/SpacesStore"
+import { ReactNode, useEffect, useRef, useState } from "react"
 
 interface WindowProps {
-  windowState: WindowState
+  children?: ReactNode
   onClose: () => void
 }
 
-export default function Window({ windowState, onClose }: WindowProps) {
+export default function Window({ children, onClose }: WindowProps) {
   const windowRef = useRef<HTMLDivElement>(null)
   const titleBarRef = useRef<HTMLDivElement>(null)
-  const { spacesStore } = useStores()
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isMinimized, setIsMinimized] = useState(false)
 
   useEffect(() => {
     if (windowRef.current && titleBarRef.current) {
+      interact(titleBarRef.current).draggable({
+        inertia: false,
+        modifiers: [
+          interact.modifiers.restrictRect({
+            restriction: "parent",
+            endOnly: true,
+          }),
+        ],
+        autoScroll: true,
+        onmove: (event) => {
+          const x = position.x + event.dx
+          const y = position.y + event.dy
+
+          setPosition({ x, y })
+        },
+      })
+
       interact(windowRef.current)
-        .draggable({
-          inertia: true,
-          modifiers: [
-            interact.modifiers.restrictRect({
-              restriction: "parent",
-              endOnly: true,
-            }),
-          ],
-          autoScroll: true,
-          onmove: (event) => {
-            spacesStore.updateWindow({
-              ...windowState,
-              x: windowState.x + event.dx,
-              y: windowState.y + event.dy,
-            })
-          },
-        })
         .resizable({
           edges: { left: true, right: true, bottom: true, top: false },
           modifiers: [
@@ -42,26 +41,24 @@ export default function Window({ windowState, onClose }: WindowProps) {
           ],
         })
         .on("resizemove", (event) => {
-          spacesStore.updateWindow({
-            ...windowState,
-            width: event.rect.width,
-            height: event.rect.height,
-          })
+          const target = event.target
+          target.style.width = `${event.rect.width}px`
+          target.style.height = `${event.rect.height}px`
         })
     }
-  }, [windowState, spacesStore])
+  }, [position])
 
   return (
     <div
       ref={windowRef}
       style={{
-        width: windowState.width,
-        height: windowState.height,
+        width: isMinimized ? "200px" : "200px",
+        height: isMinimized ? "30px" : "200px",
         backgroundColor: "white",
         border: "1px solid black",
         position: "absolute",
-        left: `${windowState.x}px`,
-        top: `${windowState.y}px`,
+        left: `${position.x}px`,
+        top: `${position.y}px`,
       }}
     >
       <div
@@ -78,12 +75,7 @@ export default function Window({ windowState, onClose }: WindowProps) {
         <div>Window</div>
         <div>
           <button
-            onClick={() =>
-              spacesStore.updateWindow({
-                ...windowState,
-                minimized: !windowState.minimized,
-              })
-            }
+            onClick={() => setIsMinimized(!isMinimized)}
             style={{
               backgroundColor: "transparent",
               border: "none",
@@ -109,7 +101,7 @@ export default function Window({ windowState, onClose }: WindowProps) {
           </button>
         </div>
       </div>
-      {!windowState.minimized && windowState.children}
+      {!isMinimized && children}
     </div>
   )
 }

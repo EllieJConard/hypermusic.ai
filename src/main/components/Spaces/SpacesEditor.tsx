@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { useStores } from "../../hooks/useStores"
+import { useState } from "react"
 import { Tab as NavigationTab } from "../Navigation/Navigation"
 import Window from "../Window/Window"
 
@@ -16,21 +16,19 @@ const Tab = styled(NavigationTab)`
 `
 
 export default function SpacesEditor() {
-  const { spacesStore } = useStores()
+  const [windows, setWindows] = useState<number[]>([])
+
+  const handleClose = (index: number) => {
+    setWindows(windows.filter((_, i) => i !== index))
+  }
 
   const handleAddWindow = () => {
-    spacesStore.addWindow({
-      x: 0,
-      y: 0,
-      width: 200,
-      height: 200,
-      minimized: false,
-    })
-    console.log(spacesStore.windows) // Add this line
+    setWindows([...windows, windows.length])
   }
 
   return (
     <div>
+      <h1>Spaces</h1>
       <ButtonPanel>
         <Tab onClick={handleAddWindow}>Add Window</Tab>
       </ButtonPanel>
@@ -41,34 +39,9 @@ export default function SpacesEditor() {
           position: "relative",
         }}
       >
-        {spacesStore.windows.length &&
-          spacesStore.windows.map((windowState) => (
-            <Window
-              key={windowState.id}
-              windowState={windowState}
-              onClose={() => spacesStore.removeWindow(windowState.id)}
-              onMinimize={() =>
-                spacesStore.updateWindow({
-                  ...windowState,
-                  minimized: !windowState.minimized,
-                })
-              }
-              onMove={(event) =>
-                spacesStore.updateWindow({
-                  ...windowState,
-                  x: windowState.x + event.dx,
-                  y: windowState.y + event.dy,
-                })
-              }
-              onResize={(event) =>
-                spacesStore.updateWindow({
-                  ...windowState,
-                  width: event.rect.width,
-                  height: event.rect.height,
-                })
-              }
-            />
-          ))}
+        {windows.map((_, index) => (
+          <Window key={index} onClose={() => handleClose(index)} />
+        ))}
       </div>
     </div>
   )
