@@ -1,5 +1,8 @@
 import interact from "interactjs"
-import { ReactNode, useEffect, useRef } from "react"
+import { ReactNode, useContext, useEffect, useRef } from "react"
+import { SpacesStoreContext } from "../../stores/SpacesStoreContext"
+
+const spacesStore = useContext(SpacesStoreContext)
 
 interface WindowProps {
   id: string

@@ -1,9 +1,11 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
-import { useStores } from "../../hooks/useStores"
 import { WindowState } from "../../stores/SpacesStore"
 import { Tab as NavigationTab } from "../Navigation/Navigation"
 import Window from "../Window/Window"
+
+import { useContext } from "react"
+import { SpacesStoreContext } from "../../stores/SpacesStoreContext"
 
 const ButtonPanel = styled.div`
   display: flex;
@@ -18,7 +20,7 @@ const Tab = styled(NavigationTab)`
 `
 
 const SpacesEditor = observer(() => {
-  const { spacesStore } = useStores()
+  const spacesStore = useContext(SpacesStoreContext)
 
   const handleClose = (id: string) => {
     spacesStore.removeWindow(id)

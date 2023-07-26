@@ -12,6 +12,8 @@ import { StoreContext } from "../../hooks/useStores"
 import { ThemeContext } from "../../hooks/useTheme"
 import { ToastProvider } from "../../hooks/useToast"
 import RootStore from "../../stores/RootStore"
+import SpacesStore from "../../stores/SpacesStore"
+import { SpacesStoreContext } from "../../stores/SpacesStoreContext"
 import { GlobalKeyboardShortcut } from "../KeyboardShortcut/GlobalKeyboardShortcut"
 import { RootView } from "../RootView/RootView"
 import { EmotionThemeProvider } from "../Theme/EmotionThemeProvider"
@@ -25,25 +27,29 @@ Sentry.init({
   tracesSampleRate: 1.0,
 })
 
+const spacesStore = new SpacesStore()
+
 export function App() {
   return (
     <React.StrictMode>
       <StoreContext.Provider value={new RootStore()}>
-        <ThemeContext.Provider value={defaultTheme}>
-          <EmotionThemeProvider>
-            <HelmetProvider>
-              <ToastProvider component={Toast}>
-                <PromptProvider component={PromptDialog}>
-                  <DialogProvider component={ActionDialog}>
-                    <GlobalKeyboardShortcut />
-                    <GlobalCSS />
-                    <RootView />
-                  </DialogProvider>
-                </PromptProvider>
-              </ToastProvider>
-            </HelmetProvider>
-          </EmotionThemeProvider>
-        </ThemeContext.Provider>
+        <SpacesStoreContext.Provider value={spacesStore}>
+          <ThemeContext.Provider value={defaultTheme}>
+            <EmotionThemeProvider>
+              <HelmetProvider>
+                <ToastProvider component={Toast}>
+                  <PromptProvider component={PromptDialog}>
+                    <DialogProvider component={ActionDialog}>
+                      <GlobalKeyboardShortcut />
+                      <GlobalCSS />
+                      <RootView />
+                    </DialogProvider>
+                  </PromptProvider>
+                </ToastProvider>
+              </HelmetProvider>
+            </EmotionThemeProvider>
+          </ThemeContext.Provider>
+        </SpacesStoreContext.Provider>
       </StoreContext.Provider>
     </React.StrictMode>
   )
