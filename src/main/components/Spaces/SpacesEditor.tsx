@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { useStores } from "../../hooks/useStores"
+import { WindowState } from "../../stores/SpacesStore"
 import { Tab as NavigationTab } from "../Navigation/Navigation"
 import Window from "../Window/Window"
 
