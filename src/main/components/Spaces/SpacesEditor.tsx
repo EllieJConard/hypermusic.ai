@@ -66,7 +66,9 @@ export default function SpacesEditor() {
                 height: event.rect.height,
               })
             }
-          />
+          >
+            {/* pass children here */}
+          </Window>
         ))}
       </div>
     </div>

@@ -4,7 +4,7 @@ import { WindowState } from "../../stores/SpacesStore"
 
 interface WindowProps {
   windowState: WindowState
-  children?: ReactNode
+  children?: React.ReactNode
   onClose: () => void
   onMinimize: () => void
   onMove: (event: Interact.InteractEvent) => void
