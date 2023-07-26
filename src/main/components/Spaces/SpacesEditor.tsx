@@ -40,7 +40,7 @@ const SpacesEditor = observer(() => {
           position: "relative",
         }}
       >
-        {Array.from(spacesStore.windows.values()).map((window) => (
+        {Array.from(spacesStore.windows.values()).map((window: WindowState) => (
           <Window
             key={window.id}
             window={window}

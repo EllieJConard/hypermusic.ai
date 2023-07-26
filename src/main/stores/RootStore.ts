@@ -18,6 +18,7 @@ import PianoRollStore from "./PianoRollStore"
 import RootViewStore from "./RootViewStore"
 import Router from "./Router"
 import SettingStore from "./SettingStore"
+import SpacesStore from "./SpacesStore"
 import TempoEditorStore from "./TempoEditorStore"
 import { registerReactions } from "./reactions"
 
@@ -41,6 +42,7 @@ export default class RootStore {
   readonly synthGroup = new GroupOutput()
   readonly midiInput = new MIDIInput()
   readonly midiRecorder: MIDIRecorder
+  readonly spacesStore = new SpacesStore()
 
   constructor() {
     makeObservable(this, {
