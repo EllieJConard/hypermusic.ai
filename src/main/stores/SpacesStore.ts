@@ -14,7 +14,7 @@ class SpacesStore {
   }
 
   addWindow(id: string, position: { x: number; y: number }) {
-    this.windows[id] = { position, isMinimized: false }
+    this.windows[id] = { id, position, isMinimized: false } // Add id here
   }
 
   removeWindow(id: string) {
