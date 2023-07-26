@@ -30,7 +30,7 @@ const SpacesEditor = observer(() => {
     spacesStore.addWindow(id, position)
   }
 
-  console.log(Array.from(spacesStore.windows.values()))
+  console.log(Object.values(spacesStore.windows))
 
   return (
     <div>
@@ -45,21 +45,19 @@ const SpacesEditor = observer(() => {
           position: "relative",
         }}
       >
-        {Array.from(spacesStore.windows.values() as WindowState[]).map(
-          (window) => (
-            <Window
-              key={window.id}
-              id={window.id}
-              position={window.position}
-              isMinimized={window.isMinimized}
-              setPosition={spacesStore.setPosition}
-              setIsMinimized={spacesStore.setIsMinimized}
-              onClose={handleClose}
-            >
-              Window {window.id}
-            </Window>
-          )
-        )}
+        {Object.values(spacesStore.windows).map((window: WindowState) => (
+          <Window
+            key={window.id}
+            id={window.id}
+            position={window.position}
+            isMinimized={window.isMinimized}
+            setPosition={spacesStore.setPosition}
+            setIsMinimized={spacesStore.setIsMinimized}
+            onClose={handleClose}
+          >
+            Window {window.id}
+          </Window>
+        ))}
       </div>
     </div>
   )
