@@ -44,6 +44,7 @@
     "firebase": "^9.21.0",
     "firebaseui": "^6.0.2",
     "gl-matrix": "^3.4.3",
+    "interactjs": "^1.10.17",
     "lodash": "^4.17.21",
     "mdi-react": "^9.2.0",
     "midifile-ts": "1.5.1",
