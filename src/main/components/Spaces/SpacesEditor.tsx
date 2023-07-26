@@ -22,6 +22,10 @@ const Tab = styled(NavigationTab)`
 const SpacesEditor = observer(() => {
   const spacesStore = useContext(SpacesStoreContext)
 
+  if (!spacesStore) {
+    return <div>Loading...</div> // or some other fallback UI
+  }
+
   const handleClose = (id: string) => {
     spacesStore.removeWindow(id)
   }
