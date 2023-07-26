@@ -4,14 +4,16 @@ import { WindowState } from "../../stores/SpacesStore"
 
 interface WindowProps {
   windowState: WindowState
+  children?: ReactNode
   onClose: () => void
   onMinimize: () => void
   onMove: (event: Interact.InteractEvent) => void
-  onResize: (event: Interact.ResizeEvent) => void
+  onResize: (event: Interact.InteractEvent) => void
 }
 
 export default function Window({
   windowState,
+  children,
   onClose,
   onMinimize,
   onMove,
@@ -51,8 +53,8 @@ export default function Window({
     <div
       ref={windowRef}
       style={{
-        width: windowState.minimized ? "200px" : `${windowState.width}px`,
-        height: windowState.minimized ? "30px" : `${windowState.height}px`,
+        width: windowState.width,
+        height: windowState.height,
         backgroundColor: "white",
         border: "1px solid black",
         position: "absolute",
@@ -100,7 +102,7 @@ export default function Window({
           </button>
         </div>
       </div>
-      {!windowState.minimized && windowState.children}
+      {!windowState.minimized && children}
     </div>
   )
 }
