@@ -43,9 +43,15 @@ const SpacesEditor = observer(() => {
         {Array.from(spacesStore.windows.values()).map((window: WindowState) => (
           <Window
             key={window.id}
-            window={window}
-            onClose={() => handleClose(window.id)}
-          />
+            id={window.id}
+            position={window.position}
+            isMinimized={window.isMinimized}
+            setPosition={spacesStore.setPosition}
+            setIsMinimized={spacesStore.setIsMinimized}
+            onClose={handleClose}
+          >
+            Window {window.id}
+          </Window>
         ))}
       </div>
     </div>
