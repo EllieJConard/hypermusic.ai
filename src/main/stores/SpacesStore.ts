@@ -11,13 +11,14 @@ interface WindowState {
 
 class SpacesStore {
   windows: WindowState[] = []
+  nextWindowId = 0
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  addWindow(window: WindowState) {
-    this.windows.push(window)
+  addWindow(window: Omit<WindowState, "id">) {
+    this.windows.push({ ...window, id: this.nextWindowId++ })
   }
 
   removeWindow(id: number) {

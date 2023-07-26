@@ -1,20 +1,21 @@
 import interact from "interactjs"
-import { ReactNode, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
+import { WindowState } from "../../stores/SpacesStore"
 
 interface WindowProps {
-  children?: ReactNode
+  windowState: WindowState
   onClose: () => void
-  onMove: (x: number, y: number) => void
-  onResize: (width: number, height: number) => void
   onMinimize: () => void
+  onMove: (event: Interact.InteractEvent) => void
+  onResize: (event: Interact.ResizeEvent) => void
 }
 
 export default function Window({
-  children,
+  windowState,
   onClose,
+  onMinimize,
   onMove,
   onResize,
-  onMinimize,
 }: WindowProps) {
   const windowRef = useRef<HTMLDivElement>(null)
   const titleBarRef = useRef<HTMLDivElement>(null)
@@ -30,9 +31,7 @@ export default function Window({
           }),
         ],
         autoScroll: true,
-        onmove: (event) => {
-          onMove(event.dx, event.dy) // Call the onMove prop
-        },
+        onmove: onMove,
       })
 
       interact(windowRef.current)
@@ -44,9 +43,7 @@ export default function Window({
             }),
           ],
         })
-        .on("resizemove", (event) => {
-          onResize(event.rect.width, event.rect.height) // Call the onResize prop
-        })
+        .on("resizemove", onResize)
     }
   }, [onMove, onResize])
 
@@ -54,11 +51,13 @@ export default function Window({
     <div
       ref={windowRef}
       style={{
-        width: "200px",
-        height: "200px",
+        width: windowState.minimized ? "200px" : `${windowState.width}px`,
+        height: windowState.minimized ? "30px" : `${windowState.height}px`,
         backgroundColor: "white",
         border: "1px solid black",
         position: "absolute",
+        left: `${windowState.x}px`,
+        top: `${windowState.y}px`,
       }}
     >
       <div
@@ -75,7 +74,7 @@ export default function Window({
         <div>Window</div>
         <div>
           <button
-            onClick={onMinimize} // Call the onMinimize prop
+            onClick={onMinimize}
             style={{
               backgroundColor: "transparent",
               border: "none",
@@ -101,7 +100,7 @@ export default function Window({
           </button>
         </div>
       </div>
-      {children}
+      {!windowState.minimized && windowState.children}
     </div>
   )
 }

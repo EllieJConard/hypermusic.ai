@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
-import { observer } from "mobx-react-lite"
-import { useStores } from "../../hooks/useStores" // Import the useStores hook
+import { useStores } from "../../hooks/useStores"
 import { Tab as NavigationTab } from "../Navigation/Navigation"
 import Window from "../Window/Window"
 
@@ -16,24 +15,17 @@ const Tab = styled(NavigationTab)`
   cursor: pointer;
 `
 
-const SpacesEditor = observer(() => {
-  // Wrap the component with observer
-  const { spacesStore } = useStores() // Use the spacesStore
-
-  const handleClose = (id: number) => {
-    spacesStore.removeWindow(id) // Use the removeWindow method of spacesStore
-  }
+export default function SpacesEditor() {
+  const { spacesStore } = useStores()
 
   const handleAddWindow = () => {
-    const newWindow = {
-      id: spacesStore.windows.length,
+    spacesStore.addWindow({
       x: 0,
       y: 0,
       width: 200,
       height: 200,
       minimized: false,
-    }
-    spacesStore.addWindow(newWindow) // Use the addWindow method of spacesStore
+    })
   }
 
   return (
@@ -48,29 +40,34 @@ const SpacesEditor = observer(() => {
           position: "relative",
         }}
       >
-        {spacesStore.windows.map(
-          (
-            window // Use the windows array of spacesStore
-          ) => (
-            <Window
-              key={window.id}
-              onClose={() => handleClose(window.id)}
-              onMove={(x, y) => spacesStore.updateWindow({ ...window, x, y })}
-              onResize={(width, height) =>
-                spacesStore.updateWindow({ ...window, width, height })
-              }
-              onMinimize={() =>
-                spacesStore.updateWindow({
-                  ...window,
-                  minimized: !window.minimized,
-                })
-              }
-            />
-          )
-        )}
+        {spacesStore.windows.map((windowState) => (
+          <Window
+            key={windowState.id}
+            windowState={windowState}
+            onClose={() => spacesStore.removeWindow(windowState.id)}
+            onMinimize={() =>
+              spacesStore.updateWindow({
+                ...windowState,
+                minimized: !windowState.minimized,
+              })
+            }
+            onMove={(event) =>
+              spacesStore.updateWindow({
+                ...windowState,
+                x: windowState.x + event.dx,
+                y: windowState.y + event.dy,
+              })
+            }
+            onResize={(event) =>
+              spacesStore.updateWindow({
+                ...windowState,
+                width: event.rect.width,
+                height: event.rect.height,
+              })
+            }
+          />
+        ))}
       </div>
     </div>
   )
-})
-
-export default SpacesEditor
+}
