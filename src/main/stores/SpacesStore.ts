@@ -1,3 +1,5 @@
+import { makeAutoObservable } from "mobx"
+
 export type WindowState = {
   id: string
   position: { x: number; y: number }
@@ -8,7 +10,8 @@ class SpacesStore {
   windows: Record<string, WindowState> = {}
 
   constructor() {
-    console.log("SpacesStore created")
+    makeAutoObservable(this)
+    this.setPosition = this.setPosition.bind(this)
   }
 
   addWindow(id: string, position: { x: number; y: number }) {
