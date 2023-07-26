@@ -1,16 +1,27 @@
 import interact from "interactjs"
-import { ReactNode, useEffect, useRef, useState } from "react"
+import { ReactNode, useEffect, useRef } from "react"
 
 interface WindowProps {
+  id: string
   children?: ReactNode
-  onClose: () => void
+  position: { x: number; y: number }
+  isMinimized: boolean
+  setPosition: (id: string, position: { x: number; y: number }) => void
+  setIsMinimized: (id: string, isMinimized: boolean) => void
+  onClose: (id: string) => void
 }
 
-export default function Window({ children, onClose }: WindowProps) {
+export default function Window({
+  id,
+  children,
+  position,
+  isMinimized,
+  setPosition,
+  setIsMinimized,
+  onClose,
+}: WindowProps) {
   const windowRef = useRef<HTMLDivElement>(null)
   const titleBarRef = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const [isMinimized, setIsMinimized] = useState(false)
 
   useEffect(() => {
     if (windowRef.current && titleBarRef.current) {
@@ -27,7 +38,7 @@ export default function Window({ children, onClose }: WindowProps) {
           const x = position.x + event.dx
           const y = position.y + event.dy
 
-          setPosition({ x, y })
+          setPosition(id, { x, y })
         },
       })
 
@@ -75,7 +86,7 @@ export default function Window({ children, onClose }: WindowProps) {
         <div>Window</div>
         <div>
           <button
-            onClick={() => setIsMinimized(!isMinimized)}
+            onClick={() => setIsMinimized(id, !isMinimized)}
             style={{
               backgroundColor: "transparent",
               border: "none",
@@ -88,7 +99,7 @@ export default function Window({ children, onClose }: WindowProps) {
             _
           </button>
           <button
-            onClick={onClose}
+            onClick={() => onClose(id)}
             style={{
               backgroundColor: "transparent",
               border: "none",
