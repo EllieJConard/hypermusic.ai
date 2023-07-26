@@ -20,6 +20,7 @@ export default function SpacesEditor() {
 
   const handleAddWindow = () => {
     spacesStore.addWindow({
+      id: spacesStore.windows.length,
       x: 0,
       y: 0,
       width: 200,

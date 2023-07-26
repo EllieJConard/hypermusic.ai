@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx"
 
-interface WindowState {
+export interface WindowState {
   id: number
   x: number
   y: number
