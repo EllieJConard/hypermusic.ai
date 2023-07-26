@@ -20,13 +20,13 @@ export default function SpacesEditor() {
 
   const handleAddWindow = () => {
     spacesStore.addWindow({
-      id: spacesStore.windows.length,
       x: 0,
       y: 0,
       width: 200,
       height: 200,
       minimized: false,
     })
+    console.log(spacesStore.windows) // Add this line
   }
 
   return (
@@ -41,35 +41,34 @@ export default function SpacesEditor() {
           position: "relative",
         }}
       >
-        {spacesStore.windows.map((windowState) => (
-          <Window
-            key={windowState.id}
-            windowState={windowState}
-            onClose={() => spacesStore.removeWindow(windowState.id)}
-            onMinimize={() =>
-              spacesStore.updateWindow({
-                ...windowState,
-                minimized: !windowState.minimized,
-              })
-            }
-            onMove={(event) =>
-              spacesStore.updateWindow({
-                ...windowState,
-                x: windowState.x + event.dx,
-                y: windowState.y + event.dy,
-              })
-            }
-            onResize={(event) =>
-              spacesStore.updateWindow({
-                ...windowState,
-                width: event.rect.width,
-                height: event.rect.height,
-              })
-            }
-          >
-            {/* pass children here */}
-          </Window>
-        ))}
+        {spacesStore.windows.length &&
+          spacesStore.windows.map((windowState) => (
+            <Window
+              key={windowState.id}
+              windowState={windowState}
+              onClose={() => spacesStore.removeWindow(windowState.id)}
+              onMinimize={() =>
+                spacesStore.updateWindow({
+                  ...windowState,
+                  minimized: !windowState.minimized,
+                })
+              }
+              onMove={(event) =>
+                spacesStore.updateWindow({
+                  ...windowState,
+                  x: windowState.x + event.dx,
+                  y: windowState.y + event.dy,
+                })
+              }
+              onResize={(event) =>
+                spacesStore.updateWindow({
+                  ...windowState,
+                  width: event.rect.width,
+                  height: event.rect.height,
+                })
+              }
+            />
+          ))}
       </div>
     </div>
   )
